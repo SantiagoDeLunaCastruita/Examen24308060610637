@@ -6,10 +6,10 @@ from datetime import datetime
 app = Flask(__name__)
 app.secret_key = 'nutri_clave_2026'
 
-# --- CONEXIÓN LIMPIA ---
+
 def get_db():
     if 'db' not in g:
-        # Conexión directa a MongoDB
+        
         client = MongoClient('mongodb://127.0.0.1:27017/')
         g.db = client['gestor_tareas']
     return g.db
@@ -20,7 +20,6 @@ def close_db(e=None):
     if db is not None:
         db.client.close()
 
-# --- RUTAS DE ACCESO ---
 
 @app.route('/')
 def index():
@@ -32,7 +31,7 @@ def index():
 def registro():
     if request.method == 'POST':
         db = get_db()
-        # Captura de los 5 datos
+
         nuevo_usuario = {
             "nombre": request.form.get('nombre'),
             "email": request.form.get('email'),
@@ -41,7 +40,7 @@ def registro():
             "fecha_nacimiento": request.form.get('fecha_nac'),
             "fecha_registro": datetime.now()
         }
-        # Insertar y redirigir al login
+
         db.usuarios.insert_one(nuevo_usuario)
         return redirect(url_for('index'))
     return render_template('registro.html')
@@ -59,7 +58,7 @@ def inicio_sesion():
         return redirect(url_for('ver_tareas'))
     return redirect(url_for('index'))
 
-# --- RUTAS DE LA APP (LOGUEADO) ---
+
 
 @app.route('/tareas', methods=['GET', 'POST'])
 def ver_tareas():
