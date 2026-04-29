@@ -15,17 +15,17 @@ class GestorNutricion:
         self.cliente = cliente
         self.db = self.cliente[DATABASE_NAME]
         self.usuarios = self.db['usuarios']
-        self.tareas = self.db['tareas'] # Nueva colección
+        self.tareas = self.db['tareas']
         self._crear_indices()
 
     def _crear_indices(self):
         try:
             self.usuarios.create_index("email", unique=True)
-            # Índice para buscar tareas por usuario rápidamente (Herramienta 7.4)
+
             self.tareas.create_index([("usuario_id", 1), ("fecha", -1)])
         except: pass
 
-    # --- LÓGICA DE USUARIOS ---
+
     def registrar_usuario(self, nombre, email, password, genero, fecha_nac):
         try:
             self.usuarios.insert_one({
@@ -48,7 +48,7 @@ class GestorNutricion:
             {"$set": {"nombre": nombre, "email": email, "genero": genero, "fecha_nacimiento": fecha_nac}}
         )
 
-    # --- LÓGICA DE TAREAS (Herramienta 8 - CRUD) ---
+    
     def obtener_tareas(self, usuario_id):
         return list(self.tareas.find({"usuario_id": ObjectId(usuario_id)}).sort("fecha", -1))
 
@@ -74,7 +74,7 @@ def close_connection(exception):
     cliente = g.pop('db_cliente', None)
     if cliente is not None: cliente.close()
 
-# --- RUTAS ---
+
 
 @app.route('/')
 def index():
