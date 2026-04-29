@@ -1,0 +1,17 @@
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card mx-auto shadow" style="max-width: 400px;">
+            <div class="card-body">
+                <h3 class="fw-bold text-center">Recuperar Cuenta</h3>
+                {% if mensaje %}
+                <div class="alert alert-{{ tipo }}">{{ mensaje }}</div>
+                {% endif %}
+                <form action="/recuperar" method="POST">
+                    <input type="email" name="email" class="form-control mb-3" placeholder="Tu correo registrado" required>
+                    <button type="submit" class="btn btn-primary w-100 fw-bold">ENVIAR INSTRUCCIONES</button>
+                </form>
+                <div class="text-center mt-3"><a href="/">Volver</a></div>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - NutriApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card p-4 shadow-lg border-0" style="width: 28rem; border-radius: 15px;">
+            <div class="card-body">
+                <h2 class="text-center fw-bold mb-4 text-success">REGISTRO</h2>
+                
+                {% if mensaje %}
+                <div class="alert alert-danger py-1 text-center small">{{ mensaje }}</div>
+                {% endif %}
+
+                <form action="/registro" method="POST">
+                    <input type="text" name="nombre" class="form-control mb-3" placeholder="Nombre completo" required>
+                    <input type="email" name="email" class="form-control mb-3" placeholder="Correo electrónico" required>
+                    <input type="password" name="password" class="form-control mb-3" placeholder="Contraseña" required>
+                    
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label class="small fw-bold text-muted">Género</label>
+                            <select name="genero" class="form-select">
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="small fw-bold text-muted">Nacimiento</label>
+                            <input type="date" name="fecha_nac" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 fw-bold shadow-sm">CREAR CUENTA</button>
+                </form>
+                <div class="text-center mt-3">
+                    <a href="/" class="text-decoration-none small text-muted">Volver al inicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

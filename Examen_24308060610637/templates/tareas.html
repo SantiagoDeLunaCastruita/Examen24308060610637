@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand text-success fw-bold" href="/">🌿 NutriApp</a>
+            <div class="ms-auto d-flex align-items-center">
+                <span class="text-light me-3 small">Hola, <b>{{ session['usuario_nombre'] }}</b></span>
+                <div class="btn-group">
+                    <a href="/tareas" class="btn btn-sm btn-outline-success active">Tareas</a>
+                    <a href="/perfil" class="btn btn-sm btn-outline-light">Mi Perfil</a>
+                    <a href="/salir" class="btn btn-sm btn-outline-danger">Salir</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-4 shadow-sm border-0 mb-4" style="border-radius: 15px;">
+                    <form action="/tareas" method="POST" class="d-flex">
+                        <input type="text" name="tarea" class="form-control me-2" placeholder="Ej: Beber 2L de agua" required>
+                        <button type="submit" class="btn btn-success fw-bold">AÑADIR</button>
+                    </form>
+                </div>
+
+                <div class="card p-3 shadow-sm border-0" style="border-radius: 15px;">
+                    <h5 class="fw-bold text-success mb-3">Mis Metas Nutricionales</h5>
+                    <ul class="list-group list-group-flush">
+                        {% for t in tareas %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ t.descripcion }}
+                            <a href="/eliminar_tarea/{{ t._id }}" class="btn btn-sm btn-link text-danger">Eliminar</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
